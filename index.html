@@ -6,88 +6,59 @@
   <title>Login with Discord</title>
   <style>
     html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #4b0082, #00008b);
-}
-
-.button {
-    width: 300px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 15px;
-    padding: 0 20px;
-    background: linear-gradient(135deg, #4b0082, #00008b);
-    border-radius: 12px;
-    color: white;
-    border: 2px solid black;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-    text-decoration: none;
-}
-
-.button img {
-    width: 30px;
-}
-
-.arrow {
-    margin-left: auto;
-    font-size: 24px;
-}
-
-.button:hover {
-    background-color: #5c2d91;
-    transform: translate(0, -3px);
-}
-
-.button:active {
-    transform: translate(0, 1px);
-}
-
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
+      height: 100%;
       margin: 0;
-      padding: 20px;
-      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #4b0082, #00008b);
     }
 
     .button {
-      display: inline-flex;
+      width: 300px;
+      height: 60px;
+      display: flex;
       align-items: center;
-      padding: 10px 20px;
-      background-color: #7289da;
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
+      justify-content: flex-start;
+      gap: 15px;
+      padding: 0 20px;
+      background: linear-gradient(135deg, #4b0082, #00008b);
+      border-radius: 12px;
+      color: white;
+      border: 2px solid black;
       cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+      text-decoration: none;
     }
 
     .button img {
-      margin-right: 10px;
+      width: 30px;
     }
 
-    .cf-turnstile {
-      margin-bottom: 20px;
+    .arrow {
+      margin-left: auto;
+      font-size: 24px;
+    }
+
+    .button:hover {
+      background-color: #5c2d91;
+      transform: translate(0, -3px);
+    }
+
+    .button:active {
+      transform: translate(0, 1px);
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
   </style>
   <!-- Include Turnstile Script -->
@@ -105,7 +76,7 @@ form {
 
   <script>
     function onTurnstileSuccess(token) {
-      fetch('http://127.0.0.1:5000/verfiy-captcha', { // Replace with your server URL
+      fetch('https://your-bot-host-url/verify-captcha', { // Replace with your server URL
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: token })
