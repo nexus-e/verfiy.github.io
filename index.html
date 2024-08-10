@@ -11,17 +11,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #4b0082, #00008b);
+      background: #121212;
+      color: #e0e0e0;
+      font-family: Arial, sans-serif;
     }
     .form-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
     }
     .button {
       width: 300px;
@@ -31,15 +28,16 @@
       justify-content: flex-start;
       gap: 15px;
       padding: 0 20px;
-      background: linear-gradient(135deg, #4b0082, #00008b);
+      background: #1f1f1f;
       border-radius: 12px;
-      color: white;
-      border: 2px solid black;
+      color: #e0e0e0;
+      border: 2px solid #444;
       cursor: not-allowed;
       opacity: 0.6;
       text-decoration: none;
       pointer-events: none;
       transition: transform 0.2s, background-color 0.2s;
+      margin-bottom: 20px;
     }
     .button img {
       width: 30px;
@@ -49,27 +47,26 @@
       font-size: 24px;
     }
     .button:hover {
-      background-color: #5c2d91;
+      background-color: #333;
       transform: translate(0, -3px);
     }
     .button:active {
       transform: translate(0, 1px);
+    }
+    .h-captcha {
+      margin: 0;
     }
   </style>
   <script src="https://hcaptcha.com/1/api.js?hl=ar" async defer></script>
 </head>
 <body>
   <div class="form-container">
-    <form id="captchaForm" action="#" method="POST">
-      <div class="h-captcha" data-sitekey="02ea8e6c-2bda-4fba-b7c6-489418d82d72" data-callback="onCaptchaSuccess" data-error-callback="onCaptchaError"></div>
-      <br />
-      <button type="submit" id="loginButton" class="button" disabled>
-        <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
-        المتابعة عبر Discord
-        <div class="arrow">›</div>
-      </button>
-    </form>
-    <div id="result"></div>
+    <button type="button" id="loginButton" class="button" disabled>
+      <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
+      المتابعة عبر Discord
+      <div class="arrow">›</div>
+    </button>
+    <div class="h-captcha" data-sitekey="02ea8e6c-2bda-4fba-b7c6-489418d82d72" data-callback="onCaptchaSuccess" data-error-callback="onCaptchaError"></div>
   </div>
 
   <script>
@@ -91,10 +88,7 @@
       loginButton.style.pointerEvents = 'none';
     }
 
-    document.getElementById('captchaForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent form from submitting immediately
-
-      // Get the hCaptcha response token
+    document.getElementById('loginButton').addEventListener('click', function() {
       const responseToken = hcaptcha.getResponse();
       console.log('hCaptcha response token:', responseToken);
 
@@ -102,7 +96,6 @@
         // Redirect to Discord OAuth login page
         window.location.href = 'https://discord.com/oauth2/authorize?client_id=1220328191470735441&response_type=code&redirect_uri=https%3A%2F%2Fsaifmohmed1.github.io%2Fnexus-verfiy-callback&scope=identify+email';
       } else {
-        // Handle CAPTCHA failure
         alert('يرجى إكمال CAPTCHA.');
       }
     });
