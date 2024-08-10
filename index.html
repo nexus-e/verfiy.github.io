@@ -26,9 +26,11 @@
       border-radius: 12px;
       color: white;
       border: 2px solid black;
-      cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
+      cursor: not-allowed;
+      opacity: 0.6;
       text-decoration: none;
+      pointer-events: none;
+      transition: transform 0.2s, background-color 0.2s;
     }
 
     .button img {
@@ -68,7 +70,7 @@
     <form id="captchaForm">
       <!-- Turnstile CAPTCHA widget -->
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAAg8O3JR1owIWVH2" data-callback="onTurnstileSuccess"></div>
-      <button type="submit" class="button">
+      <button type="submit" id="loginButton" class="button" disabled>
         <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
         المتابعه بالدسكورد
         <div class="arrow">›</div>
@@ -79,7 +81,13 @@
 
   <script>
     function onTurnstileSuccess(token) {
-      // Store the Turnstile response token in a hidden input
+      // Enable the button and store the Turnstile response token
+      const button = document.getElementById('loginButton');
+      button.disabled = false;
+      button.style.cursor = 'pointer';
+      button.style.opacity = '1';
+      button.style.pointerEvents = 'auto';
+
       const hiddenInput = document.createElement('input');
       hiddenInput.type = 'hidden';
       hiddenInput.name = 'cf-turnstile-response';
