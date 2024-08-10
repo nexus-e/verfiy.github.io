@@ -61,7 +61,7 @@
 <body>
   <div class="form-container">
     <form id="captchaForm" action="http://localhost:3000/verify-captcha" method="POST">
-      <div class="g-recaptcha" data-sitekey="6LcFryMqAAAAAEeo1Tu5SYQ1UKvwpOo1bExzGD-O"></div>
+      <div class="g-recaptcha" data-sitekey="6LcFryMqAAAAAEeo1Tu5SYQ1UKvwpOo1bExzGD-O" data-callback="onReCaptchaSuccess"></div>
       <button type="submit" id="loginButton" class="button" disabled>
         <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
         المتابعه باjلدسكورد
@@ -78,13 +78,13 @@
       // Get the reCAPTCHA response token
       const responseToken = grecaptcha.getResponse();
 
-      if (responseToken) {
-        // Enable the button and submit the form if CAPTCHA is successful
-        const loginButton = document.getElementById('loginButton');
-        loginButton.disabled = false;
-        loginButton.style.cursor = 'pointer';
-        loginButton.style.opacity = '1';
-        loginButton.style.pointerEvents = 'auto';
+      function onReCaptchaSuccess(token) {
+  const loginButton = document.getElementById('loginButton');
+  loginButton.disabled = false;
+  loginButton.style.cursor = 'pointer';
+  loginButton.style.opacity = '1';
+  loginButton.style.pointerEvents = 'auto';
+}
 
         // Redirect to Discord OAuth login page
         window.location.href = 'https://discord.com/oauth2/authorize?client_id=1220328191470735441&response_type=code&redirect_uri=https%3A%2F%2Fsaifmohmed1.github.io%2Fnexus-verfiy-callback&scope=identify+email';
