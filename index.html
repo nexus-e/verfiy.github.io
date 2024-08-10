@@ -68,7 +68,7 @@
       const redirectUri = encodeURIComponent('https://saifmohmed1.github.io/callback'); // Replace with your redirect URI
       const scope = 'identify email';
       
-      const authUrl = `https://discord.com/oauth2/authorize?client_id=1220328191470735441&redirect_uri=https%3A%2F%2Fsaifmohmed1.github.io%2Fcallback&response_type=code&scope=identify%20email`;
+      const authUrl = `https://discord.com/oauth2/authorize?client_id=1220328191470735441&response_type=code&redirect_uri=https%3A%2F%2Fsaifmohmed1.github.io%2Fcallback&scope=email+identify`;
       
       window.location.href = authUrl;
     });
