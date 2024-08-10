@@ -56,13 +56,13 @@
       gap: 10px;
     }
   </style>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
   <div class="form-container">
-    <form id="captchaForm">
-      <div class="cf-turnstile" data-sitekey="0x4AAAAAAAg8O3JR1owIWVH2" data-callback="onTurnstileSuccess"></div>
-      <button type="button" id="loginButton" class="button" disabled>
+    <form id="captchaForm" action="http://localhost:3000/verify-captcha" method="POST">
+      <div class="g-recaptcha" data-sitekey="6LcFryMqAAAAAEeo1Tu5SYQ1UKvwpOo1bExzGD-O"></div>
+      <button type="submit" id="loginButton" class="button" disabled>
         <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
         المتابعه باjلدسكورد
         <div class="arrow">›</div>
@@ -72,18 +72,27 @@
   </div>
 
   <script>
-    function onTurnstileSuccess(token) {
-      const loginButton = document.getElementById('loginButton');
-      loginButton.disabled = false;
-      loginButton.style.cursor = 'pointer';
-      loginButton.style.opacity = '1';
-      loginButton.style.pointerEvents = 'auto';
+    document.getElementById('captchaForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form from submitting immediately
 
-      loginButton.addEventListener('click', function () {
+      // Get the reCAPTCHA response token
+      const responseToken = grecaptcha.getResponse();
+
+      if (responseToken) {
+        // Enable the button and submit the form if CAPTCHA is successful
+        const loginButton = document.getElementById('loginButton');
+        loginButton.disabled = false;
+        loginButton.style.cursor = 'pointer';
+        loginButton.style.opacity = '1';
+        loginButton.style.pointerEvents = 'auto';
+
         // Redirect to Discord OAuth login page
         window.location.href = 'https://discord.com/oauth2/authorize?client_id=1220328191470735441&response_type=code&redirect_uri=https%3A%2F%2Fsaifmohmed1.github.io%2Fnexus-verfiy-callback&scope=identify+email';
-      });
-    }
+      } else {
+        // Handle CAPTCHA failure
+        alert('Please complete the CAPTCHA.');
+      }
+    });
   </script>
 </body>
 </html>
