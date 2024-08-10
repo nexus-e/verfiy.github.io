@@ -65,7 +65,7 @@
   <script>
     document.getElementById('login-button').addEventListener('click', function () {
       const clientId = '1220328191470735441'; // Replace with your Discord client ID
-      const redirectUri = encodeURIComponent('https://saifmohmed1.github.io/redirect'); // Replace with your redirect URI
+      const redirectUri = encodeURIComponent('https://saifmohmed1.github.io/callback'); // Replace with your redirect URI
       const scope = 'identify email';
       
       const authUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
