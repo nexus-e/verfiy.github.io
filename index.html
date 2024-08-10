@@ -1,19 +1,79 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login with Discord</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Discord Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            position: relative;
+        }
+        .button {
+            background-color: #7289da;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #5a6ea5;
+        }
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #7289da;
+        }
+        .author-info {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .author-info img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <a href="https://discord.com/oauth2/authorize?client_id=1220328191470735441&redirect_uri=http://127.0.0.1:5000/callback&response_type=code&scope=identify%20email" class="button">
-            <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
-            المتابعه بالدسكورد
-            <div class="arrow">›</div>
-        </a>
+    <div class="card">
+        <button class="button" id="login-button">Login via Discord</button>
+        <div class="loading" id="loading">Loading...</div>
+        <div class="author-info" id="author-info">
+            <img src="https://via.placeholder.com/50" alt="Author">
+            <p>Author Name</p>
+        </div>
     </div>
-    <script src="app.js"></script>
+
+    <script>
+        document.getElementById('login-button').addEventListener('click', function() {
+            document.getElementById('loading').style.display = 'block';
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('author-info').style.display = 'block';
+            }, 2000); // 2 seconds delay
+        });
+    </script>
 </body>
 </html>
