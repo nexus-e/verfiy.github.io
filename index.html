@@ -20,6 +20,10 @@
       flex-direction: column;
       align-items: center;
     }
+    .h-captcha {
+      margin-bottom: 20px;
+      filter: invert(1) hue-rotate(180deg); /* Dark mode styling for captcha */
+    }
     .button {
       width: 300px;
       height: 60px;
@@ -37,7 +41,6 @@
       text-decoration: none;
       pointer-events: none;
       transition: transform 0.2s, background-color 0.2s;
-      margin-bottom: 20px;
     }
     .button img {
       width: 30px;
@@ -53,20 +56,17 @@
     .button:active {
       transform: translate(0, 1px);
     }
-    .h-captcha {
-      margin: 0;
-    }
   </style>
   <script src="https://hcaptcha.com/1/api.js?hl=ar" async defer></script>
 </head>
 <body>
   <div class="form-container">
+    <div class="h-captcha" data-sitekey="02ea8e6c-2bda-4fba-b7c6-489418d82d72" data-callback="onCaptchaSuccess" data-error-callback="onCaptchaError"></div>
     <button type="button" id="loginButton" class="button" disabled>
       <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
       المتابعة عبر Discord
       <div class="arrow">›</div>
     </button>
-    <div class="h-captcha" data-sitekey="02ea8e6c-2bda-4fba-b7c6-489418d82d72" data-callback="onCaptchaSuccess" data-error-callback="onCaptchaError"></div>
   </div>
 
   <script>
