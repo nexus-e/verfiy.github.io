@@ -80,7 +80,7 @@
 
       document.getElementById('captchaForm').addEventListener('submit', function (e) {
         e.preventDefault();
-        fetch('https://your-external-server.com/verify-captcha', {
+        fetch('http://127.0.0.1:5000/verify-captcha', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token })
