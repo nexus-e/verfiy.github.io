@@ -3,99 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login with Discord</title>
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #4b0082, #00008b);
-    }
-
-    .button {
-      width: 300px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 15px;
-      padding: 0 20px;
-      background: linear-gradient(135deg, #4b0082, #00008b);
-      border-radius: 12px;
-      color: white;
-      border: 2px solid black;
-      cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
-      text-decoration: none;
-    }
-
-    .button img {
-      width: 30px;
-    }
-
-    .arrow {
-      margin-left: auto;
-      font-size: 24px;
-    }
-
-    .button:hover {
-      background-color: #5c2d91;
-      transform: translate(0, -3px);
-    }
-
-    .button:active {
-      transform: translate(0, 1px);
-    }
-
-    .form-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-  </style>
-  <!-- Include Turnstile Script -->
+  <title>Turnstile Test</title>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
-  <!-- Add Turnstile CAPTCHA widget -->
-  <div class="cf-turnstile" data-sitekey="0x4AAAAAAAg8O6JA1VgBuJke0bRsTRwW8Mg" data-callback="onTurnstileSuccess"></div>
-
-  <a id="login-button" class="button">
-    <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
-    المتابعه بالدسكورد
-    <div class="arrow">›</div>
-  </a>
+  <h1>Turnstile Test</h1>
+  <form id="captchaForm">
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAg8O3JR1owIWVH2" data-callback="onTurnstileSuccess"></div>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="result"></div>
 
   <script>
     function onTurnstileSuccess(token) {
-      fetch('https://your-bot-host-url/verify-captcha', { // Replace with your server URL
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          // Proceed with Discord OAuth
-          const clientId = '1220328191470735441'; // Your Discord client ID
-          const redirectUri = encodeURIComponent('https://saifmohmed1.github.io/callback'); // Your redirect URI
-          const scope = 'identify email';
-          const authUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
-          window.location.href = authUrl;
-        } else {
-          alert('Captcha validation failed.');
-        }
-      })
-      .catch(error => console.error('Error:', error));
+      // Store the Turnstile response token in a hidden input
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'cf-turnstile-response';
+      hiddenInput.value = token;
+      document.getElementById('captchaForm').appendChild(hiddenInput);
     }
+
+    document.getElementById('captchaForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(document.getElementById('captchaForm'));
+      const token = formData.get('cf-turnstile-response');
+
+      try {
+        const response = await fetch('http://127.0.0.1:5000/verify-captcha', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ token })
+        });
+
+        const data = await response.json();
+        document.getElementById('result').innerText = JSON.stringify(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
   </script>
 </body>
 </html>
