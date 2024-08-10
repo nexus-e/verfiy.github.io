@@ -56,12 +56,12 @@
       gap: 10px;
     }
   </style>
-  <script src="https://hcaptcha.com/1/api.js" async defer></script>
+  <script src="https://hcaptcha.com/1/api.js?hl=ar" async defer></script>
 </head>
 <body>
   <div class="form-container">
     <form id="captchaForm">
-      <div class="h-captcha" data-sitekey="02ea8e6c-2bda-4fba-b7c6-489418d82d72"></div>
+      <div class="h-captcha" data-sitekey="02ea8e6c-2bda-4fba-b7c6-489418d82d72" data-callback="onCaptchaSuccess"></div>
       <button type="submit" id="loginButton" class="button" disabled>
         <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
         المتابعه بالدسكورد
@@ -95,11 +95,6 @@
         // Handle CAPTCHA failure
         alert('Please complete the CAPTCHA.');
       }
-    });
-
-    // Initialize hCaptcha widget and callback
-    hcaptcha.render('captchaForm', {
-      callback: onCaptchaSuccess
     });
   </script>
 </body>
