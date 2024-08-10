@@ -62,9 +62,9 @@
   <div class="form-container">
     <form id="captchaForm">
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAAg8O3JR1owIWVH2" data-callback="onTurnstileSuccess"></div>
-      <button type="submit" id="loginButton" class="button" disabled>
+      <button type="button" id="loginButton" class="button" disabled>
         <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
-        المتابعه بالدسكورد
+        المتابعه باjلدسكورد
         <div class="arrow">›</div>
       </button>
     </form>
@@ -73,28 +73,15 @@
 
   <script>
     function onTurnstileSuccess(token) {
-      document.getElementById('loginButton').disabled = false;
-      document.getElementById('loginButton').style.cursor = 'pointer';
-      document.getElementById('loginButton').style.opacity = '1';
-      document.getElementById('loginButton').style.pointerEvents = 'auto';
+      const loginButton = document.getElementById('loginButton');
+      loginButton.disabled = false;
+      loginButton.style.cursor = 'pointer';
+      loginButton.style.opacity = '1';
+      loginButton.style.pointerEvents = 'auto';
 
-      document.getElementById('captchaForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        fetch('https://your-external-server.com/verify-captcha', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            // Redirect to Discord OAuth login page
-            window.location.href = 'https://discord.com/oauth2/authorize?client_id=1220328191470735441&response_type=code&redirect_uri=https%3A%2F%2Fsaifmohmed1.github.io%2Fnexus-verfiy-callback%2F&scope=identify+email';
-          } else {
-            alert('Captcha validation failed.');
-          }
-        })
-        .catch(error => console.error('Error:', error));
+      loginButton.addEventListener('click', function () {
+        // Redirect to Discord OAuth login page
+        window.location.href = 'https://discord.com/oauth2/authorize?client_id=1220328191470735441&response_type=code&redirect_uri=https%3A%2F%2Fsaifmohmed1.github.io%2Fnexus-verfiy-callback%2F&scope=identify+email';
       });
     }
   </script>
