@@ -5,56 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>hCaptcha Test</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #4b0082, #00008b);
-    }
-    .button {
-      width: 300px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 15px;
-      padding: 0 20px;
-      background: linear-gradient(135deg, #4b0082, #00008b);
-      border-radius: 12px;
-      color: white;
-      border: 2px solid black;
-      cursor: not-allowed;
-      opacity: 0.6;
-      text-decoration: none;
-      pointer-events: none;
-      transition: transform 0.2s, background-color 0.2s;
-    }
-    .button img {
-      width: 30px;
-    }
-    .arrow {
-      margin-left: auto;
-      font-size: 24px;
-    }
-    .button:hover {
-      background-color: #5c2d91;
-      transform: translate(0, -3px);
-    }
-    .button:active {
-      transform: translate(0, 1px);
-    }
-    .form-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    /* Your existing styles here */
   </style>
   <script src="https://hcaptcha.com/1/api.js" async defer></script>
 </head>
@@ -73,6 +24,7 @@
 
   <script>
     function onCaptchaSuccess() {
+      console.log('hCaptcha solved successfully');
       const loginButton = document.getElementById('loginButton');
       loginButton.disabled = false;
       loginButton.style.cursor = 'pointer';
@@ -85,6 +37,7 @@
 
       // Get the hCaptcha response token
       const responseToken = hcaptcha.getResponse();
+      console.log('hCaptcha response token:', responseToken);
 
       if (responseToken) {
         // Redirect to Discord OAuth login page
@@ -95,7 +48,7 @@
       }
     });
 
-    // Add event listener for hCaptcha widget ready
+    // Initialize hCaptcha widget and callback
     hcaptcha.render('captchaForm', {
       callback: onCaptchaSuccess
     });
