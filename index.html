@@ -13,7 +13,6 @@
       justify-content: center;
       background: linear-gradient(135deg, #4b0082, #00008b);
     }
-
     .button {
       width: 300px;
       height: 60px;
@@ -32,31 +31,25 @@
       pointer-events: none;
       transition: transform 0.2s, background-color 0.2s;
     }
-
     .button img {
       width: 30px;
     }
-
     .arrow {
       margin-left: auto;
       font-size: 24px;
     }
-
     .button:hover {
       background-color: #5c2d91;
       transform: translate(0, -3px);
     }
-
     .button:active {
       transform: translate(0, 1px);
     }
-
     .form-container {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
     form {
       display: flex;
       flex-direction: column;
@@ -87,7 +80,7 @@
 
       document.getElementById('captchaForm').addEventListener('submit', function (e) {
         e.preventDefault();
-        fetch('http://127.0.0.1:5000/verify-captcha', {
+        fetch('https://your-external-server.com/verify-captcha', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token })
