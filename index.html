@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>reCAPTCHA Test</title>
+  <title>hCaptcha Test</title>
   <style>
     html, body {
       height: 100%;
@@ -56,12 +56,12 @@
       gap: 10px;
     }
   </style>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://hcaptcha.com/1/api.js" async defer></script>
 </head>
 <body>
   <div class="form-container">
     <form id="captchaForm">
-      <div class="g-recaptcha" data-sitekey="6LcFryMqAAAAAEeo1Tu5SYQ1UKvwpOo1bExzGD-O" data-callback="onReCaptchaSuccess"></div>
+      <div class="h-captcha" data-sitekey="02ea8e6c-2bda-4fba-b7c6-489418d82d72"></div>
       <button type="submit" id="loginButton" class="button" disabled>
         <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
         المتابعه بالدسكورد
@@ -72,7 +72,7 @@
   </div>
 
   <script>
-    function onReCaptchaSuccess() {
+    function onCaptchaSuccess() {
       const loginButton = document.getElementById('loginButton');
       loginButton.disabled = false;
       loginButton.style.cursor = 'pointer';
@@ -83,8 +83,8 @@
     document.getElementById('captchaForm').addEventListener('submit', function(event) {
       event.preventDefault(); // Prevent form from submitting immediately
 
-      // Get the reCAPTCHA response token
-      const responseToken = grecaptcha.getResponse();
+      // Get the hCaptcha response token
+      const responseToken = hcaptcha.getResponse();
 
       if (responseToken) {
         // Redirect to Discord OAuth login page
@@ -93,6 +93,11 @@
         // Handle CAPTCHA failure
         alert('Please complete the CAPTCHA.');
       }
+    });
+
+    // Add event listener for hCaptcha widget ready
+    hcaptcha.render('captchaForm', {
+      callback: onCaptchaSuccess
     });
   </script>
 </body>
