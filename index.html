@@ -1,168 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Profile</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #2c2c2c, #4b4b4b);
-            font-family: Arial, sans-serif;
-            color: #fff;
-            overflow: hidden;
-        }
-
-        .container {
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-        }
-
-        .border-wrapper {
-            border: 4px solid transparent;
-            border-image: linear-gradient(135deg, #4b4b4b, #2c2c2c);
-            border-image-slice: 1;
-            border-radius: 15px;
-            padding: 10px;
-            display: inline-block;
-        }
-
-        .tap {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
-            display: inline-block;
-            position: relative;
-            margin-top: 20px;
-            animation: slideIn 1s ease-out;
-            max-width: 90%;
-            box-sizing: border-box;
-        }
-
-        .tap img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            border: 6px solid #fff;
-            transform: translateX(-50%);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
-            object-fit: cover;
-        }
-
-        .tap h2 {
-            margin-top: 80px;
-            font-size: 28px;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .tap p {
-            font-size: 16px;
-            margin: 10px 0 0;
-            color: #ccc;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .button-container {
-            margin: 25px 0 0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .verify-button {
-            --color: #fff;
-            --background: #404040;
-            --background-hover: #353535;
-            border: #000000;
-            outline: none;
-            cursor: pointer;
-            position: relative;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 19px;
-            -webkit-appearance: none;
-            -webkit-tap-highlight-color: transparent;
-            padding: 20px 50px;
-            color: var(--color);
-            background: var(--bg, var(--background));
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            margin-top: -25px;
-            width: 340px;
-            display: inline-block;
-            animation: fadeIn 1s ease-out;
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-
-        .verify-button:hover {
-            background: var(--background-hover);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-        }
-
-        .verify-button:focus {
-            outline: none;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+    <title>Login with Discord</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="tap">
-            <img src="https://cdn.discordapp.com/avatars/USER_ID/AVATAR_HASH.png" alt="Profile Image" id="avatar">
-            <h2 id="username">Username#1234</h2>
-            <p>اضغط على الزر أدناه للتحقق منك</p>
-        </div>
-        <div class="button-container">
-            <button class="verify-button" onclick="verifyUser()">تحقق مني</button>
-        </div>
+        <a href="https://discord.com/oauth2/authorize?client_id=1220328191470735441&redirect_uri=http://127.0.0.1:5000/callback&response_type=code&scope=identify%20email" class="button">
+            <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
+            المتابعه بالدسكورد
+            <div class="arrow">›</div>
+        </a>
     </div>
-
-    <script>
-        // Dummy user info, replace with dynamic data as needed
-        const userInfo = {
-            username: "Username",
-            discriminator: "1234",
-            avatar: "AVATAR_HASH",  // Replace with actual avatar hash
-            id: "USER_ID"  // Replace with actual user ID
-        };
-
-        // Update HTML with user info
-        document.getElementById("username").innerText = `${userInfo.username}#${userInfo.discriminator}`;
-        document.getElementById("avatar").src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
-
-        function verifyUser() {
-            // Handle the verification process
-            alert("Verification process started!");
-            // Redirect or perform other actions here
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
