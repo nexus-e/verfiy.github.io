@@ -1,77 +1,90 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login with Discord</title>
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #4b0082, #00008b);
-    }
-
-    .button {
-      width: 300px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 15px;
-      padding: 0 20px;
-      background: linear-gradient(135deg, #4b0082, #00008b);
-      border-radius: 12px;
-      color: white;
-      border: 2px solid black;
-      cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
-      text-decoration: none;
-    }
-
-    .button img {
-      width: 30px;
-    }
-
-    .arrow {
-      margin-left: auto;
-      font-size: 24px;
-    }
-
-    .button:hover {
-      background-color: #5c2d91;
-      transform: translate(0, -3px);
-    }
-
-    .button:active {
-      transform: translate(0, 1px);
-    }
-  </style>
-  <!-- Include Turnstile Script -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login with Discord</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4b0082, #00008b);
+        }
+        .button {
+            width: 300px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 15px;
+            padding: 0 20px;
+            background: linear-gradient(135deg, #4b0082, #00008b);
+            border-radius: 12px;
+            color: white;
+            border: 2px solid black;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            text-decoration: none;
+        }
+        .button img {
+            width: 30px;
+        }
+        .arrow {
+            margin-left: auto;
+            font-size: 24px;
+        }
+        .button:hover {
+            background-color: #5c2d91;
+            transform: translate(0, -3px);
+        }
+        .button:active {
+            transform: translate(0, 1px);
+        }
+    </style>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
-  <!-- Add Turnstile CAPTCHA widget -->
-  <div class="cf-turnstile" data-sitekey="0x4AAAAAAAg8O3JR1owIWVH2"></div>
+    <form id="login-form">
+        <div class="cf-turnstile" data-sitekey="your-site-key-here"></div>
+        <a id="login-button" class="button">
+            <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
+            المتابعه بالدسكورد
+            <div class="arrow">›</div>
+        </a>
+    </form>
 
-  <a id="login-button" class="button">
-    <img src="https://i.ibb.co/QkbRdps/636e0a6a49cf127bf92de1e2-icon-clyde-blurple-RGB.png" alt="Discord Logo">
-    المتابعه بالدسكورد
-    <div class="arrow">›</div>
-  </a>
+    <script>
+        document.getElementById('login-button').addEventListener('click', async function () {
+            const token = document.querySelector('.cf-turnstile').getAttribute('data-token');
+            if (!token) {
+                alert('Please complete the CAPTCHA.');
+                return;
+            }
 
-  <script>
-    document.getElementById('login-button').addEventListener('click', function () {
-      const clientId = '1220328191470735441'; // Replace with your Discord client ID
-      const redirectUri = encodeURIComponent('https://saifmohmed1.github.io/callback'); // Replace with your redirect URI
-      const scope = 'identify email';
-      
-      const authUrl = `https://discord.com/oauth2/authorize?client_id=1220328191470735441&response_type=code&redirect_uri=https%3A%2F%2Fsaifmohmed1.github.io%2Fcallback&scope=email+identify`;
-      
-      window.location.href = authUrl;
-    });
-  </script>
+            try {
+                const response = await fetch('/validate-captcha', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 'cf-turnstile-response': token })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    window.location.href = result.redirectUrl; // Redirect to Discord login
+                } else {
+                    alert('CAPTCHA validation failed.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
 </body>
 </html>
