@@ -77,18 +77,6 @@
         const data = await response.json();
         const userIP = data.ip;
         
-        // تحقق من IP المستخدم في Firebase
-        const firebaseResponse = await fetch('https://hello-a92eb-default-rtdb.firebaseio.com/variables/ip.json');
-        const firebaseData = await firebaseResponse.json();
-        
-        if (!firebaseData || !firebaseData[userIP]) {
-          document.body.innerHTML = ''; // إفراغ الصفحة إذا لم يتم العثور على IP
-        }
-      } catch (error) {
-        console.error('Error fetching IP:', error);
-        document.body.innerHTML = ''; // إفراغ الصفحة في حالة وجود خطأ
-      }
-    }
 
     function onCaptchaSuccess() {
       console.log('hCaptcha solved successfully');
