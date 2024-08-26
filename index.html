@@ -70,14 +70,7 @@
   </div>
 
   <script>
-    // وظيفة للحصول على IP المستخدم
-    async function checkUserIP() {
-      try {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        const userIP = data.ip;
-        
-
+    // Function to handle hCaptcha success
     function onCaptchaSuccess() {
       console.log('hCaptcha solved successfully');
       const loginButton = document.getElementById('loginButton');
@@ -87,6 +80,7 @@
       loginButton.style.pointerEvents = 'auto';
     }
 
+    // Function to handle hCaptcha error
     function onCaptchaError() {
       console.log('hCaptcha error');
       const loginButton = document.getElementById('loginButton');
@@ -96,6 +90,7 @@
       loginButton.style.pointerEvents = 'none';
     }
 
+    // Event listener for button click
     document.getElementById('loginButton').addEventListener('click', function() {
       const responseToken = hcaptcha.getResponse();
       console.log('hCaptcha response token:', responseToken);
@@ -108,7 +103,19 @@
       }
     });
 
-    // استدعاء وظيفة التحقق من IP عند تحميل الصفحة
+    // Function to get user IP (not used in this example but kept for future use)
+    async function checkUserIP() {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        const userIP = data.ip;
+        console.log('User IP:', userIP);
+      } catch (error) {
+        console.error('Error fetching IP:', error);
+      }
+    }
+
+    // Call the IP check function when the page loads
     checkUserIP();
   </script>
 </body>
